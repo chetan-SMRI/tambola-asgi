@@ -266,12 +266,15 @@
                                         Tickets</button> <br>
                                 </div>
                                {% include 'tickets.html' %}
+                            <!-- Here my ticket was being shown in correct width -->
                             </div>
                         </div>
+                    
                     </div>
                     <div class="col span_3_of_10">
                         &nbsp;
                     </div>
+                
                 </div>
                 <!-- End here -->
                 <div id="mytickets"></div>
@@ -280,17 +283,6 @@
                         <span id="clr" style="cursor: pointer;">CLEAR</span>
                     </div>
                 </div>
-                <!-- Prize section start -->
-                <div data-prizeid="644"></div>
-                <div data-prizeid="645"></div>
-                <div data-prizeid="646"></div>
-                <div data-prizeid="647"></div>
-                <div data-prizeid="648"></div>
-                <div data-prizeid="649"></div>
-                <div data-prizeid="650"></div>
-                <div data-prizeid="651"></div>
-                <div data-prizeid="652"></div>
-                <div id="prizeslast"></div>
 
             </div>
             <!-- End here -->
@@ -312,6 +304,7 @@
             </div>
             <div class="col span_4_of_10 cells prize prize-win">
                 <div class="ptype" style="text-transform:uppercase;font-weight:bold;">Quick Five</div>
+                <button onclick="win_ticket_show(qf_array)">Show</button>
                 <div class="nmprz"> <input type="hidden">
                     <div id="quick_five_name"></div>
                     <div id="quick_five_address"></div>
@@ -331,6 +324,7 @@
             </div>
             <div class="col span_4_of_10 cells prize prize-win">
                 <div class="ptype" style="text-transform:uppercase;font-weight:bold;">Quick Seven</div>
+                <button onclick="win_ticket_show(qs_array)">Show</button>
                 <div class="nmprz"> <input type="hidden">
                     <div id="quick_seven_name"></div>
                     <div id="quick_seven_address"></div>
@@ -350,6 +344,7 @@
             </div>
             <div class="col span_4_of_10 cells prize prize-win">
                 <div class="ptype" style="text-transform:uppercase;font-weight:bold;">Corner</div>
+                <button onclick="win_ticket_show(c_array)">Show</button>
                 <div class="nmprz"> <input type="hidden">
                     <div id="corner_name"></div>
                     <div id="corner_address"></div>
@@ -369,6 +364,7 @@
             </div>
             <div class="col span_4_of_10 cells prize prize-win">
                 <div class="ptype" style="text-transform:uppercase;font-weight:bold;">Top Line</div>
+                <button onclick="win_ticket_show(l1_array)">Show</button>
                 <div class="nmprz"> <input type="hidden">
                     <div id="line_1_name"></div>
                     <div id="line_1_address"></div>
@@ -388,6 +384,7 @@
             </div>
             <div class="col span_4_of_10 cells prize prize-win">
                 <div class="ptype" style="text-transform:uppercase;font-weight:bold;">Middle Line</div>
+                <button onclick="win_ticket_show(l2_array)">Show</button>
                 <div class="nmprz"> <input type="hidden">
                     <div id="line_2_name"></div>
                     <div id="line_2_address"></div>
@@ -407,6 +404,7 @@
             </div>
             <div class="col span_4_of_10 cells prize prize-win">
                 <div class="ptype" style="text-transform:uppercase;font-weight:bold;">Bottom Line</div>
+                <button onclick="win_ticket_show(l3_array)">Show</button>
                 <div class="nmprz"> <input type="hidden">
                     <div id="line_3_name"></div>
                     <div id="line_3_address"></div>
@@ -423,6 +421,7 @@
             </div>
             <div class="col span_4_of_10 cells prize prize-win">
                 <div class="ptype" style="text-transform:uppercase;font-weight:bold;">Star</div>
+                <button onclick="win_ticket_show(s_array)">Show</button>
                 <div class="nmprz"> <input type="hidden">
                     <div id="star_name"></div>
                     <div id="star_address"></div>
@@ -439,6 +438,7 @@
             </div>
             <div class="col span_4_of_10 cells prize prize-win">
                 <div class="ptype" style="text-transform:uppercase;font-weight:bold;">Full Sheet</div>
+                <button onclick="win_ticket_show(fs_array)">Show</button>
                 <div class="nmprz"> <input type="hidden">
                     <div id="full_sheet_name"></div>
                     <div id="full_sheet_address"></div>
@@ -455,6 +455,7 @@
             </div>
             <div class="col span_4_of_10 cells prize prize-win">
                 <div class="ptype" style="text-transform:uppercase;font-weight:bold;">Half Sheet</div>
+                <button onclick="win_ticket_show(hs_array)">Show</button>
                 <div class="nmprz"> <input type="hidden">
                     <div id="half_sheet_name"></div>
                     <div id="half_sheet_address"></div>
@@ -472,6 +473,7 @@
             </div>
             <div class="col span_4_of_10 cells prize prize-win">
                 <div class="ptype" style="text-transform:uppercase;font-weight:bold;">Full House</div>
+                <button onclick="win_ticket_show(fh_array)">Show</button>
                 <div class="nmprz"> <input type="hidden">
                     <div id="full_house_name"></div>
                     <div id="full_house_address"></div>
@@ -488,6 +490,7 @@
             </div>
             <div class="col span_4_of_10 cells prize prize-win">
                 <div class="ptype" style="text-transform:uppercase;font-weight:bold;">2nd Full House</div>
+                <button onclick="win_ticket_show(sfh_array)">Show</button>
                 <div class="nmprz"> <input type="hidden">
                     <div id="second_full_house_name"></div>
                     <div id="second_full_house_address"></div>
@@ -504,6 +507,7 @@
             </div>
             <div class="col span_4_of_10 cells prize prize-win">
                 <div class="ptype" style="text-transform:uppercase;font-weight:bold;">3rd Full House</div>
+                <button onclick="win_ticket_show(tfh_array)">Show</button>
                 <div class="nmprz"> <input type="hidden">
                     <div id="third_full_house_name"></div>
                     <div id="third_full_house_address"></div>
@@ -513,10 +517,18 @@
             <div class="col span_3_of_10">
                 &nbsp;
             </div>
-        </div>        
+        </div>    
+            
     </div>
     <br /><br />
+
 </div>
+
+<div id="win_ticket_show" class="section group col span_4_of_10 ticket_list" style="text-align: center;margin-top: 10px;">
+
+</div>
+
+
 <canvas id="canvas" class="canvas">Canvas is not supported in your browser.</canvas>
 {% endblock %}
 {% block js %}
@@ -663,6 +675,19 @@ function showHSWinner(tickets,name,address){
     // var q = document.getElementById('a_half_sheet');
     speak('half sheet gone');
 }
+
+var qf_array = [];
+var qs_array = [];
+var fh_array = [];
+var sfh_array = [];
+var tfh_array = [];
+var l1_array = [];
+var l2_array = [];
+var l3_array = [];
+var s_array = [];
+var c_array = [];
+var hs_array = [];
+var fs_array = [];
 function showWinner(winner_type, winner_name,play_audio, speech_text) {
     var v = winner_name;
     var name = ''
@@ -673,6 +698,18 @@ function showWinner(winner_type, winner_name,play_audio, speech_text) {
         else{
             name = name + 'Ticket No: '+winner_name[i].ticket__ticket_no+'&nbsp;<br>'
         }
+        if (winner_type == 'quick_five') qf_array.push(winner_name[i].ticket__ticket_no)
+        if (winner_type == 'quick_seven') qs_array.push(winner_name[i].ticket__ticket_no)
+        if (winner_type == 'line_1') l1_array.push(winner_name[i].ticket__ticket_no)
+        if (winner_type == 'line_2') l2_array.push(winner_name[i].ticket__ticket_no)
+        if (winner_type == 'line_3') l3_array.push(winner_name[i].ticket__ticket_no)
+        if (winner_type == 'star') s_array.push(winner_name[i].ticket__ticket_no)
+        if (winner_type == 'corner') c_array.push(winner_name[i].ticket__ticket_no)
+        if (winner_type == 'half_sheet') hs_array.push(winner_name[i].ticket__ticket_no)
+        if (winner_type == 'full_sheet') fs_array.push(winner_name[i].ticket__ticket_no)
+        if (winner_type == 'full_house') fh_array.push(winner_name[i].ticket__ticket_no)
+        if (winner_type == 'second_full_house') sfh_array.push(winner_name[i].ticket__ticket_no)
+        if (winner_type == 'third_full_house') tfh_array.push(winner_name[i].ticket__ticket_no)
     }
     document.getElementById(winner_type+"_name").innerHTML= name
     document.getElementById(winner_type).style.display="initial";
@@ -772,8 +809,8 @@ function announce_winner(json,play_audio){
 var gameover = false
 called_no = []
 function get_called_no(){
-    let socket = new WebSocket("ws://" + window.location.host + ":{{WEBSITE_WS_PORT}}/getlastvalues/1/");
-    //let socket = new WebSocket("ws://" + window.location.host + "/getlastvalues/1/");
+    //let socket = new WebSocket("ws://" + window.location.host + ":{{WEBSITE_WS_PORT}}/getlastvalues/1/");
+    let socket = new WebSocket("ws://" + window.location.host + "/getlastvalues/1/");
     socket.onopen = function(e) {
         console.log("[open] Connection established");
         //alert("Sending to server");
@@ -783,7 +820,7 @@ function get_called_no(){
     socket.onmessage = 
 	function(event) 
 			{
-				console.log(`[message] Data received from server: ${event.data}`);
+				//console.log(`[message] Data received from server: ${event.data}`);
 				//console.log(event.data)
                 try{
                     var response = JSON.parse(event.data)['text'];
@@ -880,5 +917,38 @@ $('#countdown_timer').countdown("{{time_obj.schedule_time|date:'Y/m/d H:i'}}", f
     $(this).html(event.strftime('%H:%M:%S'));
 	//if($(this).html() == '00:00:00') get_called_no();
 });
+
+function win_ticket_show(ticket_no_arr){
+win_div = document.getElementById("win_ticket_show");
+win_div.innerHTML = "";
+if (typeof(ticket_no_arr[0]) != 'string'){
+
+for (var d=0; d<ticket_no_arr.length; d++){
+ticket_div = document.getElementById("t_"+ticket_no_arr[d].toString());
+ticket_html = '<div class="message_box -" id="win_t_'+ticket_no_arr[d].toString()+'" style="display:initial;">' + ticket_div.innerHTML + '</div>'
+ticket_html = ticket_html.replaceAll('<s>', '')
+ticket_html = ticket_html.replaceAll('</s>', '')
+ticket_html = ticket_html.replaceAll('style="color: red;"', '')
+win_div.innerHTML += ticket_html;
+}
+
+}else{
+ticket_no_arr2 = []
+for (var d=0; d<ticket_no_arr.length; d++){
+ticket_no_arr2.push(ticket_no_arr[d].split("-"));
+}
+ticket_no_arr2 = ticket_no_arr2.flat()
+for (var d=0; d<ticket_no_arr2.length; d++){
+ticket_div = document.getElementById("t_"+ticket_no_arr2[d].toString());
+ticket_html = '<div class="message_box -" id="win_t_'+ticket_no_arr2[d].toString()+'" style="display:initial;">' + ticket_div.innerHTML + '</div>'
+ticket_html = ticket_html.replaceAll('<s>', '')
+ticket_html = ticket_html.replaceAll('</s>', '')
+ticket_html = ticket_html.replaceAll('style="color: red;"', '')
+win_div.innerHTML += ticket_html;
+}
+
+}
+
+}
 </script>
 {% endblock %}
