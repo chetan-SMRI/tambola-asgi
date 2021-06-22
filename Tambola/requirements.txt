@@ -1,0 +1,11 @@
+celery==5.0.5
+Django==3.2.3
+wheel
+gunicorn
+django-celery-beat==2.2.0
+django-celery-results==2.0.1
+Pillow==8.2.0
+redis==3.5.3
+channels
+mysqlclient
+django_extensions

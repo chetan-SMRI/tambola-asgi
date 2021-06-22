@@ -1,0 +1,57 @@
+{% extends 'admin/change_list.html' %}
+{% block extrahead %}
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+<script>
+  $(document).on("click","#start_game",function(){
+      $.ajax({
+          url:'{% url 'start_game' %}',
+          type:"GET",
+          success:function(response){
+              $("#body_text").html("<h5>Game has been started succesfully</h5>")
+            $("#staticBackdrop").modal()
+          }
+      })
+    })
+
+  
+    $(document).on("click","#reset_game",function(){
+        $.ajax({
+          url:"{% url 'reset_game' %}",
+          type:"GET",
+          success:function(response){
+              $("#body_text").html("<h5>Game has resetted succesfully</h5>")
+            $("#staticBackdrop").modal()
+          }
+      })
+    })
+    
+    
+    $(document).on("click","#close_modal",function(){
+        $("#staticBackdrop").modal('hide')
+    })
+
+</script>
+{% endblock %}
+{% block object-tools %}
+<button type="button"  id="start_game" class="btn btn-md btn-primary">Start Game</button>
+<button type="button"  id="reset_game" class="btn btn-md btn-primary">Reset The Game</button>
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+      </div>
+      <div class="modal-body" id="body_text">
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="close_modal" class="btn btn-primary">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+    {{ block.super }}
+
+{% endblock %}

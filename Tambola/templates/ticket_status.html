@@ -1,0 +1,189 @@
+{% extends 'base.html' %}
+{% block title %}
+{{website_title}}
+{% endblock %}
+{% load static %}
+{% block body %}
+<style>
+input[type=text], select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+button[type=submit] {
+  width: 100%;
+  background-color: #4CAF50;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button[type=submit]:hover {
+  background-color: #45a049;
+}
+#close {
+    float:right;
+    display:inline-block;
+    padding:2px 5px;
+    background:#ccc;
+}
+
+#close:hover {
+        float:right;
+        display:inline-block;
+        padding:2px 5px;
+        background:#ccc;
+    color:#fff;
+}
+</style>
+<section>
+    <div class="popupOverlayDiv" id="formDiv" style="display:none">
+        <div class="infoDiv">
+        <span onclick="hideInputForm();" id='close'>x</span>
+          <form method="POST" action="{% url 'multiticketbook' %}" class="formContainer">
+          <label>Name</label> <br>
+          <input type="text" placeholder="Enter Username" id="username" name="username" required>
+          <br>
+          <label>Phone</label>  <br>
+          <input type="text" placeholder="Enter Phone" id="phone" name="phone" required>
+          <br>
+          <label>Address</label> <br>
+          <input type="text" placeholder="Enter Address" id="address" name="address" required>
+          <br>
+          <input type="text" placeholder="Enter Tickets To Book" id="tickets" name="tickets" style="display:none" required>
+          {% csrf_token %}
+          <button type="submit" >Book</button>
+          </form>
+    </div> 
+    </div>
+</section>
+<div id="main" style="width: 100%;">
+    <div class="header" style=" left: 0; top: 0; width: 100%; text-align: center; z-index: 100; ">
+        <div class="section group" style="margin: 0;">
+            <div class="col span_3_of_10" style="margin: 0;">
+                &nbsp;
+            </div>
+            <div class="col span_4_of_10" style="text-align: center; margin: 0;">
+                <div style="position: relative; width:100%; display: block; ">
+                    <div class="col span_10_of_10" style="margin-top;margin-top: 86px;margin-bottom: 25px;">
+                        <h1 class="sttt">{{website_name}}</h1>                        
+                    </div>
+                </div>
+            </div>
+            <div class="col span_3_of_10" style="margin: 0;">
+                &nbsp;
+            </div>
+        </div>
+    </div>
+    <div id="main" style="position: relative; width:100%; display: block; ">
+    	
+
+        <div class="countdown" style="text-align: center;">
+            <h2>Ticket Status</h2>
+        </div>
+        <div class="col span_10_of_10">
+            <div id="bodyreturn">
+                <br>
+                <button style="margin: 0 auto; display: none;" type="button" id="book_btn" class="button button2">
+                <a id="anchor_bookticket" href="javascript:showInputForm();" style="text-decoration: none; color: white; font-weight: bold; font-size: 15px; text-align: right; margin: 10px; padding: 5px;">Book Selected Tickets</a>
+                </button>
+                <br>
+                <div id="claims"><img style="margin: 0 auto;" id="claimsimg">
+                    <!--<img src="img/top line.png" style="margin: 0 auto;">-->
+                </div>
+                <!-- <div id="drawnnohome" class="bounce">33</div>-->
+                <div id="drawing_nums">
+                    <div class="section group">
+                        <div class="col span_3_of_10">
+                            &nbsp;
+                        </div>
+                        <div class="col span_4_of_10">
+                            <div class="section group">
+                                {% for ticket in tickets %}
+                                {% if ticket in booked_tickets %}
+                                <div class="col span_1_of_10 cells-chart-show fill-cell-block nm1" id="d_1">{{ticket}}</div>
+                                {% else %}
+                                <div class="col span_1_of_10 cells-chart-show nm1" id="d_1" tkt_no="{{ticket}}" onclick="SelectTicket(this);">{{ticket}}</div>
+                                {% endif %}
+                                {% endfor %}                                
+                            </div>
+                        </div>
+                        <div class="col span_3_of_10">&nbsp;</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block js %}
+<script>
+{% if messages %}
+    		{% for message in messages %}
+    		alert("{{message}}")
+    		{% endfor %}
+		
+{% endif %}
+var to_be_booked_list = [];
+
+function checkIfQueued(Arr) {
+          let isCnsc = true;
+          for (st in Arr ) {
+               if ( Arr[parseInt(st)+1]-Arr[parseInt(st)] > 1 && !isNaN(Arr[parseInt(st)+1]-Arr[parseInt(st)] )) {
+                    isCnsc = false;
+               }
+          }
+           return isCnsc;
+     }
+
+
+function SelectTicket(a){
+	b="col span_1_of_10 cells-chart-show fill-cell-selected nm1";
+	a.classList.toggle('fill-cell-selected');
+	if ( a.classList.contains('fill-cell-selected') ){
+	    to_be_booked_list.push(a.getAttribute('tkt_no'));
+	}else{
+	    for (var i=0;i < to_be_booked_list.length; i++){
+		if (to_be_booked_list[i] == a.getAttribute('tkt_no'))
+		to_be_booked_list.splice(i,1);
+	    }
+	}
+	if (to_be_booked_list.length == 0)
+	document.getElementById("book_btn").style.display = "none"; else
+	document.getElementById("book_btn").style.display = "block";
+	
+	to_be_booked_list.sort(function(a, b) {
+  		return a - b;
+	});
+	var BookTicketType = "Book Selected Tickets"
+	if (to_be_booked_list.length == 3){
+		if(checkIfQueued(to_be_booked_list)){
+		console.log("Book Halfsheet")
+		BookTicketType = "Book Halfsheet"
+		}
+	}else if (to_be_booked_list.length == 6){
+		if(checkIfQueued(to_be_booked_list) && to_be_booked_list[to_be_booked_list.length - 1] % 6 == 0){
+		console.log("Book Fullsheet")
+		BookTicketType = "Book Fullsheet"
+		}
+	}
+	
+	document.getElementById("anchor_bookticket").innerHTML = BookTicketType
+	document.getElementById("tickets").value = to_be_booked_list;
+
+}
+function showInputForm(){
+document.getElementById("formDiv").style.display = "initial";
+}
+function hideInputForm(){
+document.getElementById("formDiv").style.display = "none";
+}
+</script>
+{% endblock %}

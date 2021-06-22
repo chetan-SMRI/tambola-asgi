@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+{{website_title}}
+{% endblock %}
+{% block body %}
+<div class="popupOverlayDiv" id="infoDiv">
+        <div class="infoDiv">
+    <p>
+       <h3> !!ANOUNCEMENT!!</h3> <br>
+       <h2 style="color: red; font-family: 'Times New Roman', Times, serif;"> IMPORTANT NOTICE</h2> <br>
+        {{website_name}} is the ultimate online 'Housie' gaming website. Developed by Tambola Maker It is completely legal and has been strictly following the set of rules stated by Indian Government Law and Juridiction.<br>
+        I declare that I am citizen of India<br>
+        I am 18+ years of age as of today.<br>
+        
+       <h4> DECLARATION</h4>
+        
+        I declare that I am a citizen of India <br>
+        I am not a domicile of the states of Assam/Odisha/Telangana <br>
+        I am 18+ years of age as of today. <br>
+        </p>
+	<button class="acceptBtn" onclick="myPopup()">I accept</button>
+	</p>
+    </div>
+    </div>
+{% if wantToShowAgents %}
+<div class="popupOverlayDiv" id="agentDiv" style="display:none">
+        <div class="infoDiv">
+		<table id="">
+			<thead>
+			<tr ><th scope="col" class=""><div class="text">Agent</div><div class="clear"></div></th>
+			<th style="width:200px" scope="col" class=""><div class="text">Contact</div><div class="clear"></div></th></tr>
+			</thead>
+			<tbody>
+			{% for agent,phone in agents %}
+			<tr><td class="">{{agent}}</td><td class="">{{phone}}</td></tr>
+			{% endfor %}
+			</tbody>
+		</table>
+	<button class="acceptBtn" onclick="closeAgentShow()">Close</button>
+	</div>
+</div>
+{% endif %}
+<div class="header" style="left: 0; top: 0; width: 100%; text-align: center; z-index: 100;">
+    <div class="section group" style="margin: 0;">
+        <div class="col span_3_of_10" style="margin: 0;">
+            &nbsp;
+        </div>
+        <div class="col span_4_of_10" style="text-align: center; margin: 0;">            
+            <div class="texttt" style="margin-top:100px">
+                <h1 class="sttt">{{website_name}}</h1>                
+            </div>
+        </div>
+        <div class="col span_3_of_10" style="margin: 0;">
+            &nbsp;
+        </div>
+        {% if banner_image.image %}
+        <div class="col span_4_of_10">
+            <img src="{{banner_image.image.url}}" height="200" width="300">
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<!--Start Ticket from here -->
+<div id="tkts" style="display:block;">
+    <div class="section group">
+        <div class="col span_3_of_10">
+            &nbsp;
+        </div>
+        <div class="col span_4_of_10" style="text-align: center;margin-top: 10px;">
+            <img src="{% static 'img/calen.png'%}"><span style="color:#000000;font-weight:bold;vertical-align: super;">{{todays_time.schedule_time|date:'d/m/Y h:i A'}}</span>            
+            <br> <br>
+            <button type="button" class="button button2"><a href="{% url 'admin:index' %}" style="text-decoration: none; color: white; font-weight: bold; font-size: 15px; text-align: right; margin: 10px; padding: 5px;">LOG IN</a> </button>
+{% if wantToShowAgents %}<button type="button" class="button button2"><a href="javascript:showAgents()" style="text-decoration: none; color: white; font-weight: bold; font-size: 15px; text-align: right; margin: 10px; padding: 5px;">AGENTS</a> </button>{% endif %}
+            <!--
+			<button type="button" class="button button2"><a href="{% url 'agentlist' %}"
+			style="text-decoration: none; color: white; font-weight: bold; font-size: 15px; text-align: right; margin: 10px; padding: 5px;">AGENT LIST</a> </button>
+			-->
+            
+			<div id="mytestcontainer">
+                <div class="tickets_list_div" id="tickets_list_div">            
+                    {% include 'tickets.html' %}
+                </div>
+            </div>            
+        </div>
+    </div>
+</div>
+<!-- End ticket here -->
+{% endblock %}
+{% block js %}
+<!--Chat button start form here!!!!-->
+<!-- GetButton.io widget -->
+<script type="text/javascript">
+    function myPopup() {
+    var x = document.getElementById("infoDiv");
+    if (x.style.display === "none") {
+      x.style.display = "block";
+    } else {
+      x.style.display = "none";
+    }
+}   
+    function showAgents(){ 
+        document.getElementById('agentDiv').style.display = 'initial';
+    }
+    function closeAgentShow(){
+        document.getElementById('agentDiv').style.display = 'none';
+    }
+</script>
+{% endblock %}

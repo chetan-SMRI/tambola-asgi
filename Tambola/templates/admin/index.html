@@ -1,0 +1,37 @@
+
+{% extends "admin/base_site.html" %}
+{% load i18n static %}
+
+{% block extrastyle %}{{ block.super }}<link rel="stylesheet" type="text/css" href="{% static "admin/css/dashboard.css" %}">{% endblock %}
+
+{% block coltype %}colMS{% endblock %}
+
+{% block bodyclass %}{{ block.super }} dashboard{% endblock %}
+
+{% block breadcrumbs %}{% endblock %}
+
+{% block nav-sidebar %}{% endblock %}
+
+{% block content %}
+<div id="content-main">
+  {% include "admin/app_list.html" with app_list=app_list show_changelinks=True %}
+</div>
+{% endblock %}
+{% block stats %}
+<div style='display:flex;'>
+    <h1 style='margin-right:40px'><strong>Sold Tickets: {{sold_tickets}}</strong></h1>
+    <h1 style='margin-right:40px'><strong>Unsold Tickets: {{unsold_tickets}}</strong></h1>    
+    <a href="{% url 'check_ticket_status' %}" class="" style="
+    border: 1px solid;
+    padding: 13px;
+    background-color: #417690;
+    color: white;
+    margin-bottom: 20px;
+    border-radius: 5px;">Check Ticket Status</a>
+    
+</div>
+{% endblock %}
+
+{% block sidebar %}
+
+{% endblock %}

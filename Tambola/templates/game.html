@@ -1,0 +1,884 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+{{website_title}}
+{% endblock %}
+{% block css %}
+<style>
+    .selection group {
+        background-color: green;
+
+    }
+
+    .bounce {
+        animation: .8s infinite beatHeart;
+    }
+
+    @keyframes beatHeart {
+        0% {
+            transform: scale(1);
+        }
+
+        25% {
+            transform: scale(1.1);
+        }
+
+        40% {
+            transform: scale(1.2);
+        }
+
+        60% {
+            transform: scale(1.1);
+        }
+
+        100% {
+            transform: scale(1);
+        }
+    }
+
+    #loading {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        color: white;
+        opacity: 1;
+        transition: 0.5s;
+        visibility: visible;
+    }
+
+    #loading.hidden {
+        opacity: 0;
+        visibility: hidden;
+    }
+
+    #myProgress {
+        width: 480px;
+        background-color: #0074D9;
+        margin: 30px auto;
+    }
+
+    #myBar {
+        width: 0%;
+        height: 2px;
+        background-color: #fff;
+    }
+
+    .animated {
+        background-image: url(css/images/logo.html);
+        background-repeat: no-repeat;
+        background-position: left top;
+        padding-top: 95px;
+        margin-bottom: 60px;
+        -webkit-animation-duration: 10s;
+        animation-duration: 10s;
+        -webkit-animation-fill-mode: both;
+        animation-fill-mode: both;
+    }
+
+    .countdown {
+        text-align: center;
+        font-size: 30px;
+        margin-bottom: 20px;
+    }
+
+    @-webkit-keyframes bounceIn {
+        0% {
+            opacity: 0;
+            -webkit-transform: scale(.3);
+        }
+
+        50% {
+            opacity: 1;
+            -webkit-transform: scale(1.05);
+        }
+
+        70% {
+            -webkit-transform: scale(.9);
+        }
+
+        100% {
+            -webkit-transform: scale(1);
+        }
+    }
+
+    @keyframes bounceIn {
+        0% {
+            opacity: 0;
+            transform: scale(.3);
+        }
+
+        50% {
+            opacity: 1;
+            transform: scale(1.05);
+        }
+
+        70% {
+            transform: scale(.9);
+        }
+
+        100% {
+            transform: scale(1);
+        }
+    }
+
+    .bounceIn {
+        -webkit-animation-name: bounceIn;
+        animation-name: bounceIn;
+    }
+</style>
+{% endblock %}
+{% block body %}
+<section>
+    <div class="popupOverlayDiv" id="infoDiv">
+        <div class="infoDiv">
+	<p>
+       <h3> !!ANOUNCEMENT!!</h3> <br>
+       <h2 style="color: red; font-family: 'Times New Roman', Times, serif;"> IMPORTANT NOTICE</h2> <br>
+        {{website_name}} is the ultimate online 'Housie' gaming website. Developed by Tambola Maker It is completely legal and has been strictly following the set of rules stated by Indian Government Law and Juridiction.<br>
+        I declare that I am citizen of India<br>
+        I am 18+ years of age as of today.<br>
+        
+       <h4> DECLARATION</h4>
+        
+        I declare that I am a citizen of India <br>
+        I am not a domicile of the states of Assam/Odisha/Telangana <br>
+        I am 18+ years of age as of today. <br>
+        </p>
+	<button class="acceptBtn">I accept</button>
+	</p>
+    </div>
+    </div>
+</section>
+
+
+<div id="main" style="width: 100%;">
+    <div class="header" style=" left: 0; top: 0; width: 100%; text-align: center; z-index: 100; ">
+        <div class="section group" style="margin: 0;">
+            <div class="col span_3_of_10" style="margin: 0;">
+                &nbsp;
+            </div>
+            <div class="col span_4_of_10" style="text-align: center; margin: 0;">
+                <div style="position: relative; width:100%; display: block; ">
+                    <div class="col span_10_of_10" style="margin-top;margin-top: 86px;margin-bottom: 25px;">
+                        <!--<h4 style="color:#fff;color: #fff;
+            text-align: center;
+            font-size: 24px;font-family: 'Grenze Gotisch', cursive;">A family fun game.</h4>-->
+                        <!-- <img src="{% static 'img/logo.png'%}" style="width:40%;"> -->
+                        <h1 class="sttt">{{website_name}}</h1>
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="col span_3_of_10" style="margin: 0;">
+                &nbsp;
+            </div>
+        </div>
+    </div>
+    <div id="main" style="position: relative; width:100%; display: block; ">
+        <div class="countdown">
+            <div>{{ time_obj.schedule_time|date:'d/m/Y' }}&nbsp&nbsp<span id="countdown_timer"></span></div>
+        </div>
+        <div class="col span_10_of_10">
+            <div id="bodyreturn">
+                <div id="claims"><img style="margin: 0 auto;" id="claimsimg">
+                    <!--<img src="img/top line.png" style="margin: 0 auto;">-->
+                </div>
+                <!-- <div id="drawnnohome" class="bounce">33</div>-->
+                <div id="drawing_nums">
+                    <div class="section group">
+                        <div class="col span_3_of_10">
+                            &nbsp;
+                        </div>
+                        <div class="col span_4_of_10">
+                            <div class='last_played_div' style='display: none'>
+                                <h4>Last Number Played</h4>
+                                <div id="already_striked_elements">
+                                </div>
+                            </div>
+                            <div class="section group">
+                                {% for i in called_no_range %}
+                                <div class="col span_1_of_10 cells-chart cell-undrawn nm{{i}}" id="d_{{i}}">{{i}}</div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <div class="col span_3_of_10">&nbsp;</div>
+                    </div>
+                </div>
+                <div id="drawing_nums_last"> </div>
+                <input id="drawid" name="drawid" type="hidden" value="1">
+                <input id="lastprize" name="prizetype" type="hidden" value="Second Housefull">
+                <input id="lastprzdeclare" name="lastprizetype" type="hidden">
+                <!--Ticket Selection Part-->
+                <h4 style="text-align: center; color: blue; font-weight: bold; font-family: arial, verdana;margin-top: 20px;margin-bottom: 20px;"><b>
+                    Select Your Ticket number</b></h4>                
+                <div class="section group">
+                    <div class="col span_3_of_10">
+                        &nbsp;
+                    </div>
+                    <div class="col span_4_of_10">
+                        <div class="section group">
+                            <div id="d1" class="col span_1_of_10 cells-select digt">1</div>
+                            <div id="d2" class="col span_1_of_10 cells-select digt">2</div>
+                            <div id="d3" class="col span_1_of_10 cells-select digt">3</div>
+                            <div id="d4" class="col span_1_of_10 cells-select digt">4</div>
+                            <div id="d5" class="col span_1_of_10 cells-select digt">5</div>
+                            <div id="d6" class="col span_1_of_10 cells-select digt">6</div>
+                            <div id="d7" class="col span_1_of_10 cells-select digt">7</div>
+                            <div id="d8" class="col span_1_of_10 cells-select digt">8</div>
+                            <div id="d9" class="col span_1_of_10 cells-select digt">9</div>
+                            <div id="d0" class="col span_1_of_10 cells-select digt">0</div>
+                        </div>
+                    </div>
+                    <div class="col span_3_of_10">
+                        &nbsp;
+                    </div>
+                </div>
+                <!-- End here -->
+                <!-- Search Part -->
+                <div class="section group" style="margin-top: 16px;">
+                    <div class="col span_3_of_10">
+                        &nbsp;
+                    </div>
+                    <div class="col span_4_of_10">
+                        <div class="col span_3_of_10" style="font-size: 30px; color: #fff;">
+                            <span id="backspace" style="cursor: pointer;"><img src="{% static 'img/BACKK.png'%}"
+                                    width="40" height="40"></span>
+                        </div>
+                        <div id="nmcoupon" class="col span_4_of_10 pattern"
+                            style="color: black; font-size: 14px; font-weight: bold">
+                            TICKET NO: <span id="cno"></span>
+                        </div>
+                        <div class="col span_3_of_10" style="font-size: 30px; color: #fff; text-align: right;">
+                            <span id="showcoupon" style="cursor: pointer;"><img src="{% static 'img/OKK.png'%}"
+                                    width="50" height="40" style="padding-right: 10px;"></span>
+                        </div>
+                    </div>
+                    <div id="mytickets">
+                        <div id="tckid" class="section group">
+                            <div class="col span_3_of_10">&nbsp;</div>
+                            <div class="col span_4_of_10 ticket_list" style="text-align: center;margin-top: 10px;">
+                                <div>
+                                    <button type="button" id="clear_tmb_tickets" onclick="clear_tickets()"
+                                        style="display:none; border: 2px solid black; margin-bottom: 5px; padding: 4px; color: purple; font-weight: bold; font-family: times new roman;">Clear
+                                        Tickets</button> <br>
+                                </div>
+                               {% include 'tickets.html' %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col span_3_of_10">
+                        &nbsp;
+                    </div>
+                </div>
+                <!-- End here -->
+                <div id="mytickets"></div>
+                <div id="clrmytks" class="section group" style="display: none;text-align: center;color: #fff;">
+                    <div class="col span_10_of_10 pattern">
+                        <span id="clr" style="cursor: pointer;">CLEAR</span>
+                    </div>
+                </div>
+                <!-- Prize section start -->
+                <div data-prizeid="644"></div>
+                <div data-prizeid="645"></div>
+                <div data-prizeid="646"></div>
+                <div data-prizeid="647"></div>
+                <div data-prizeid="648"></div>
+                <div data-prizeid="649"></div>
+                <div data-prizeid="650"></div>
+                <div data-prizeid="651"></div>
+                <div data-prizeid="652"></div>
+                <div id="prizeslast"></div>
+
+            </div>
+            <!-- End here -->
+            <div class="col span_3_of_10">
+                &nbsp;
+            </div>
+            <div style="margin: 1% 0;" id="tickets"></div>
+            <div id="clrmytkslast" class="section group" style="display: none;text-align: center;color: #fff;">
+                <div class="col span_10_of_10 pattern">
+                    <span id="clrlast" style="cursor: pointer;">CLEAR</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="prizes">
+        <div class="section group" id="quick_five" style="display:none;">
+            <div class="col span_3_of_10">
+                &nbsp;
+            </div>
+            <div class="col span_4_of_10 cells prize prize-win">
+                <div class="ptype" style="text-transform:uppercase;font-weight:bold;">Quick Five</div>
+                <div class="nmprz"> <input type="hidden">
+                    <div id="quick_five_name"></div>
+                    <div id="quick_five_address"></div>
+                    <hr>
+                </div>
+
+
+
+            </div>
+            <div class="col span_3_of_10">
+                &nbsp;
+            </div>
+        </div>
+        <div class="section group" id="quick_seven" style="display:none;">
+            <div class="col span_3_of_10">
+                &nbsp;
+            </div>
+            <div class="col span_4_of_10 cells prize prize-win">
+                <div class="ptype" style="text-transform:uppercase;font-weight:bold;">Quick Seven</div>
+                <div class="nmprz"> <input type="hidden">
+                    <div id="quick_seven_name"></div>
+                    <div id="quick_seven_address"></div>
+                    <hr>
+                </div>
+
+
+
+            </div>
+            <div class="col span_3_of_10">
+                &nbsp;
+            </div>
+        </div>
+        <div class="section group" id="corner" style="display:none;">
+            <div class="col span_3_of_10">
+                &nbsp;
+            </div>
+            <div class="col span_4_of_10 cells prize prize-win">
+                <div class="ptype" style="text-transform:uppercase;font-weight:bold;">Corner</div>
+                <div class="nmprz"> <input type="hidden">
+                    <div id="corner_name"></div>
+                    <div id="corner_address"></div>
+                    <hr>
+                </div>
+
+
+
+            </div>
+            <div class="col span_3_of_10">
+                &nbsp;
+            </div>
+        </div>
+        <div class="section group" id="line_1" style="display:none;">
+            <div class="col span_3_of_10">
+                &nbsp;
+            </div>
+            <div class="col span_4_of_10 cells prize prize-win">
+                <div class="ptype" style="text-transform:uppercase;font-weight:bold;">Top Line</div>
+                <div class="nmprz"> <input type="hidden">
+                    <div id="line_1_name"></div>
+                    <div id="line_1_address"></div>
+                    <hr>
+                </div>
+
+
+
+            </div>
+            <div class="col span_3_of_10">
+                &nbsp;
+            </div>
+        </div>
+        <div class="section group" id="line_2" style="display:none;">
+            <div class="col span_3_of_10">
+                &nbsp;
+            </div>
+            <div class="col span_4_of_10 cells prize prize-win">
+                <div class="ptype" style="text-transform:uppercase;font-weight:bold;">Middle Line</div>
+                <div class="nmprz"> <input type="hidden">
+                    <div id="line_2_name"></div>
+                    <div id="line_2_address"></div>
+                    <hr>
+                </div>
+
+
+
+            </div>
+            <div class="col span_3_of_10">
+                &nbsp;
+            </div>
+        </div>
+        <div class="section group" id="line_3" style="display:none;">
+            <div class="col span_3_of_10">
+                &nbsp;
+            </div>
+            <div class="col span_4_of_10 cells prize prize-win">
+                <div class="ptype" style="text-transform:uppercase;font-weight:bold;">Bottom Line</div>
+                <div class="nmprz"> <input type="hidden">
+                    <div id="line_3_name"></div>
+                    <div id="line_3_address"></div>
+                    <hr>
+                </div>
+            </div>
+            <div class="col span_3_of_10">
+                &nbsp;
+            </div>
+        </div>
+        <div class="section group" id="star" style="display:none;">
+            <div class="col span_3_of_10">
+                &nbsp;
+            </div>
+            <div class="col span_4_of_10 cells prize prize-win">
+                <div class="ptype" style="text-transform:uppercase;font-weight:bold;">Star</div>
+                <div class="nmprz"> <input type="hidden">
+                    <div id="star_name"></div>
+                    <div id="star_address"></div>
+                    <hr>
+                </div>
+            </div>
+            <div class="col span_3_of_10">
+                &nbsp;
+            </div>
+        </div>
+        <div class="section group" id="full_sheet" style="display:none;">
+            <div class="col span_3_of_10">
+                &nbsp;
+            </div>
+            <div class="col span_4_of_10 cells prize prize-win">
+                <div class="ptype" style="text-transform:uppercase;font-weight:bold;">Full Sheet</div>
+                <div class="nmprz"> <input type="hidden">
+                    <div id="full_sheet_name"></div>
+                    <div id="full_sheet_address"></div>
+                    <hr>
+                </div>
+            </div>
+            <div class="col span_3_of_10">
+                &nbsp;
+            </div>
+        </div>
+        <div class="section group" id="half_sheet" style="display:none;">
+            <div class="col span_3_of_10">
+                &nbsp;
+            </div>
+            <div class="col span_4_of_10 cells prize prize-win">
+                <div class="ptype" style="text-transform:uppercase;font-weight:bold;">Half Sheet</div>
+                <div class="nmprz"> <input type="hidden">
+                    <div id="half_sheet_name"></div>
+                    <div id="half_sheet_address"></div>
+                    <hr>
+                </div>
+            </div>
+            <div class="col span_3_of_10">
+                &nbsp;
+            </div>
+        </div>
+        
+        <div class="section group" id="full_house" style="display:none;">
+            <div class="col span_3_of_10">
+                &nbsp;
+            </div>
+            <div class="col span_4_of_10 cells prize prize-win">
+                <div class="ptype" style="text-transform:uppercase;font-weight:bold;">Full House</div>
+                <div class="nmprz"> <input type="hidden">
+                    <div id="full_house_name"></div>
+                    <div id="full_house_address"></div>
+                    <hr>
+                </div>
+            </div>
+            <div class="col span_3_of_10">
+                &nbsp;
+            </div>
+        </div>
+        <div class="section group" id="second_full_house" style="display:none;">
+            <div class="col span_3_of_10">
+                &nbsp;
+            </div>
+            <div class="col span_4_of_10 cells prize prize-win">
+                <div class="ptype" style="text-transform:uppercase;font-weight:bold;">2nd Full House</div>
+                <div class="nmprz"> <input type="hidden">
+                    <div id="second_full_house_name"></div>
+                    <div id="second_full_house_address"></div>
+                    <hr>
+                </div>
+            </div>
+            <div class="col span_3_of_10">
+                &nbsp;
+            </div>
+        </div>
+        <div class="section group" id="third_full_house" style="display:none;">
+            <div class="col span_3_of_10">
+                &nbsp;
+            </div>
+            <div class="col span_4_of_10 cells prize prize-win">
+                <div class="ptype" style="text-transform:uppercase;font-weight:bold;">3rd Full House</div>
+                <div class="nmprz"> <input type="hidden">
+                    <div id="third_full_house_name"></div>
+                    <div id="third_full_house_address"></div>
+                    <hr>
+                </div>
+            </div>
+            <div class="col span_3_of_10">
+                &nbsp;
+            </div>
+        </div>        
+    </div>
+    <br /><br />
+</div>
+<canvas id="canvas" class="canvas">Canvas is not supported in your browser.</canvas>
+{% endblock %}
+{% block js %}
+<style>
+.canvas{
+    width:100%;
+    height: 100%;
+    position: fixed;
+    z-index: 2;
+    background: rgba(0, 0, 0,0);
+    pointer-events: none;
+    top:0px;
+    left: 0px;
+    transition:2s;
+    opacity: 0;
+}
+</style>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script src="{% static 'js/jquery-2.1.3.min.js'%}"></script>
+<script src="{% static 'js/firework.js'%}"></script>
+<script src="http://cdn.rawgit.com/hilios/jQuery.countdown/2.2.0/dist/jquery.countdown.min.js"></script>
+<script>
+function speak(text){    
+    var msg = new SpeechSynthesisUtterance();
+    msg.text = text
+    msg.pitch = 1;
+    msg.rate=1;    
+    if(text!="init"){
+        window.speechSynthesis.speak(msg);
+    }
+} 
+function myPopup() {
+    var x = document.getElementById("infoDiv");
+    if (x.style.display === "none") {
+      x.style.display = "block";
+    } else {
+      x.style.display = "none";
+    }
+}
+$(document).on('click touch','.acceptBtn',function(){    
+    myPopup()    
+    speak('init')    
+})
+var pnum = "";
+var stats = 0;
+var lastno=0;
+var sounds = [];
+var curSound = 0;
+var audioLoaded = 0;
+var lastprz="";
+window.onload = function() {
+    btnAudioClicked();
+    $('.digt').on('click', digitClicked);
+    $("#backspace").on('click', backspaceClicked);
+    $("#showcoupon").on('click', showcouponClicked);
+    $("#clr").on('click', clrClicked);
+    //$("#clrlast").on('click', clrClickedlast);
+};
+setTimeout(function() {
+    $('#loading').addClass('hidden');
+    $(".loader").css("display", "none");
+    $("#div_audio").css("display", "block");
+    fetchPrize();
+    $("#myProgress").css("display", "none");
+    $("#clrmytkslast").css("display", "none");
+    $("#clrmytks").css("display", "none");
+}, 1000);
+
+digitClicked = function() {
+    var htm = $(this).html().trim();
+    if(pnum.length == 3)
+        return;
+    pnum += htm;
+    $("#cno").html(pnum);
+}
+
+backspaceClicked = function() {
+
+    if(pnum == "")
+        return;
+    pnum = pnum.slice(0, -1);
+    $("#cno").html(pnum);
+}
+
+showcouponClicked = function (){
+    if(pnum.length == 0)
+    {
+        alert("Invalid coupon number");
+        return;
+    }
+    var did= $("#drawid").val();
+    //$("#backspace").css("visibility", "hidden");
+    //$("#showcoupon").css("visibility", "hidden");
+    $("#clrmytks").css("display", "none");
+    var x = document.getElementById("t_"+pnum);
+    attr = $(document).find('#t_'+pnum).closest('div.message_box').attr('class').split(' ')[1]
+    if(attr && attr != '-'){
+        $(document).find('.'+attr).css('display','initial')
+    }
+    else{
+    x.style.display = "initial";
+    }
+    pnum = "";
+    $("#cno").html(pnum);
+    $(document).find("#clear_tmb_tickets").css("display","initial")
+    //alert(did);
+}
+   
+fetchdrawno=function()
+{   var arrpnum = $('div[data-id]').map(function(){
+    return $(this).data('id');
+    }).get();
+    var did= $("#drawid").val();
+    $.post( "fetchTickdraw.html", { 'tnocolor': arrpnum,'drawid':did }).done(function(data) { fetchTicketsByTnoSuccessre(data);});
+}
+function fetchTicketsByTnoSuccessre(data) {
+    /* setTimeout(function(){
+    $("#mytickets").html(data);
+    },2000);*/
+    $("#mytickets").html(data);
+    arrpnum = "";
+    $("#cno").html(arrpnum);
+    $("#backspace").css("visibility", "visible");
+    $("#showcoupon").css("visibility", "visible");
+    $("#clrmytks").css("display", "block");
+}
+function clrClicked(data) {
+    $("#mytickets").html("");
+    $("#clrmytks").css("display", "none");
+}
+btnAudioClicked = function() {
+      
+}
+fetchPrize = function() {
+      
+}
+</script>
+<script>
+var done_no = [];
+function showHSWinner(tickets,name,address){
+    document.getElementById('half_sheet_name').innerHTML="TNO: "+tickets+" ( "+name+" )";
+    document.getElementById('half_sheet_address').innerHTML=address;
+    document.getElementById('half_sheet').style.display="initial";
+    // var q = document.getElementById('a_half_sheet');
+    speak('half sheet gone');
+}
+function showWinner(winner_type, winner_name,play_audio, speech_text) {
+    var v = winner_name;
+    var name = ''
+    for(i=0;i<winner_name.length;i++){
+        if (winner_name[i].ticket__bookticket__username){
+            name = name + 'Ticket No: '+winner_name[i].ticket__ticket_no+'&nbsp; Name: '+winner_name[i].ticket__bookticket__username+'<br>'
+        }
+        else{
+            name = name + 'Ticket No: '+winner_name[i].ticket__ticket_no+'&nbsp;<br>'
+        }
+    }
+    document.getElementById(winner_type+"_name").innerHTML= name
+    document.getElementById(winner_type).style.display="initial";
+    if(play_audio){
+        // var q = document.getElementById("a_"+winner_type);
+        speak(speech_text);
+    }
+}
+var gameover = false;
+var qf = false;
+var qs = false;
+var fh = false;
+var sfh = false;
+var tfh = false;
+var l1 = false;
+var l2 = false;
+var l3 = false;
+var s = false;
+var c = false;
+var hs = false;
+var fs = false;
+function announce_winner(json,play_audio){    
+    if(json.Line_1.length!=0){
+        if(l1==false){
+            showWinner("line_1",json.Line_1,play_audio,"Top Line Gone");
+            l1=true; 
+        }
+    }
+    if(json.Line_2.length!=0){
+        if(l2==false){
+            showWinner("line_2",json.Line_2,play_audio, "Middle line Gone");
+            l2=true; 
+        }
+    }
+    if(json.Line_3.length!=0){
+        if(l3==false){
+            showWinner("line_3",json.Line_3,play_audio, "Bottom line Gone");
+            l3=true;
+        }
+    }
+    if(json.Star.length!=0){
+        if(s==false){
+            showWinner("star",json.Star,play_audio, "Star Gone");
+            s=true;
+        }
+    }
+   
+    if(json.Quick_Five.length!=0){
+        if(qf==false){
+            showWinner("quick_five",json.Quick_Five,play_audio, "Quick five Gone");
+            qf=true;
+        }
+    }
+    if(json.Quick_Seven.length!=0){
+        if(qs==false){
+            showWinner("quick_seven",json.Quick_Seven,play_audio, "Quick seven Gone");
+            qs=true;
+        }
+    }
+    if(json.Corner.length!=0){
+        if(c==false){
+            showWinner("corner",json.Corner,play_audio , "Corner line Gone");
+            c=true;
+        }
+    }
+    if(json.Full_House.length!=0){
+        if (fh==false){
+            showWinner("full_house",json.Full_House,play_audio, "Full House Gone");
+            fh = true
+        }
+    }
+    if(json.Second_House.length!=0){
+        if(sfh==false){
+            showWinner("second_full_house",json.Second_House,play_audio, "second full house Gone");
+            sfh=true
+        }
+    }
+    if(json.Third_House.length!=0){
+        if(tfh==false){
+            showWinner("third_full_house",json.Third_House,play_audio, "Third House Gone");
+            tfh=true
+        }
+    }
+    if(json.Half_Sheet.length!=0){
+        if(hs==false){
+            showWinner("half_sheet",json.Half_Sheet,play_audio, "Half sheet Gone");
+            hs=true; 
+        }
+    }
+    if(json.Full_Sheet.length!=0){
+        if(fs==false){
+            showWinner("full_sheet",json.Full_Sheet,play_audio, "Full sheet Gone");
+            fs=true;
+        }
+    }
+}
+var gameover = false
+called_no = []
+function get_called_no(){
+    let socket = new WebSocket("ws://" + window.location.host + ":{{WEBSITE_WS_PORT}}/getlastvalues/1/");
+    //let socket = new WebSocket("ws://" + window.location.host + "/getlastvalues/1/");
+    socket.onopen = function(e) {
+        console.log("[open] Connection established");
+        //alert("Sending to server");
+        socket.send(JSON.stringify({'task' : 'retry'}))
+    };
+
+    socket.onmessage = 
+	function(event) 
+			{
+				console.log(`[message] Data received from server: ${event.data}`);
+				//console.log(event.data)
+                try{
+                    var response = JSON.parse(event.data)['text'];
+                    var p = response.numbers;
+                    var winners = response.winner_data                
+                    function diffArray(newArr, oldArr) {
+                        var newSet = new Set(newArr)
+                        var diff = []
+                        oldArr.forEach((a) => {
+                            if(!newSet.delete(a))diff.push(a)
+                        })
+                        return diff.concat(Array.from(newSet))
+                    }
+                    var d = diffArray(p,done_no);
+                    done_no = p;
+                    if(d.length==1){
+                    // var q = document.getElementById("a"+String(d[0]));                
+                    // q.onended = announce_winner(winners,response.play_audio)
+                        if(response.play_audio){
+                            speak("Calling number "+response.last_no);
+                        }
+                    }
+                    announce_winner(winners,response.play_audio)
+                    var i, z;
+                    for(var x = 0; x < d.length ; x++){
+                        var q = document.getElementById("d_"+String(d[x]));
+                        q.style.backgroundColor = "Red";
+                        q.style.color = "white";
+                        for(i = 1; i < parseInt("{{limit}}")+1 ; i++){
+                            for (z = 0 ; z < 27 ; z++){
+                                var a = String(document.getElementById(String(i)+"_"+String(z)).textContent);
+
+                                a = parseInt(a);
+                                if(a == d[x]){
+                                    document.getElementById(String(i)+"_"+String(z)).style.color = "red";
+                                    var c = document.getElementById(String(i)+"_"+String(z));
+                                    c.innerHTML = '<s>' + a + '</s>';
+                                }
+                            }
+                        }
+                    }
+                    if(p && p.length != 0){
+                        html = ''
+                        for(i=0;i<p.length;i++){
+                            html += "<strike>"+p[i]+"</strike>"
+                        }
+                        document.getElementById("already_striked_elements").innerHTML = html
+                        $(document).find(".last_played_div").css("display","block")
+                    }
+                    if(response.winner_data.game_started == true && response.winner_data.game_over == true){
+                        // a = document.getElementById('a_gameover')
+                        // a.play() 
+                        speak('game is over')
+                        gameover = true
+                        announce_winner(winners,response.play_audio)
+                        // return true
+                    }
+                }
+                catch{
+                   console.log("Catching main exception")
+                }
+                if (gameover == false)
+                setTimeout(function() {
+            		socket.send(JSON.stringify({'task' : 'retry'}))
+				},5000);
+            };
+	socket.onclose = 
+	function(event) 
+	{
+	console.log("Connection Closed! Retrying again");
+		setTimeout(function() {
+			get_called_no();
+		}, 1000);
+
+	};
+}
+
+$(document).ready(function(){
+    btnAudioClicked()
+	get_called_no();	
+//	setTimeout(function(){
+//		startFirework();
+//		setTimeout(function(){
+//			stopFirework();
+//		},5000);
+//	},4000);
+
+    });
+function clear_tickets(){
+    $(".ticket_list .message_box").css("display","none")
+    $(document).find("#clear_tmb_tickets").css("display","none")
+}
+$('#countdown_timer').countdown("{{time_obj.schedule_time|date:'Y/m/d H:i'}}", function(event) {
+    $(this).html(event.strftime('%H:%M:%S'));
+	//if($(this).html() == '00:00:00') get_called_no();
+});
+</script>
+{% endblock %}

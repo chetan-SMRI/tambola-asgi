@@ -1,0 +1,299 @@
+{% load static %}
+{% load string_to_list %}
+{% for ticket in tickets %}
+{% with user=ticket.bookticket %}
+<div class="message_box {% if user.username %}{{user.username|replace_str}}{% else %}-{% endif %}" data-id="43801" data-drawid="{{ticket.ticket_no}}" id="{% if show_tickets %}{{ticket.ticket_no}}{% else %}t_{{ticket.ticket_no}}{% endif %}" {% if not show_tickets %}
+    style="display:none;"{% endif %}>
+        <div class="section group">
+            <div class="col span_10_of_10 tno">
+                {% if user %}
+                <span style="float: left;margin-top: -10px;"><img src="{% static 'img/booked.png'%}"></span>
+                {% else %} 
+                {% endif %}
+                <span id="name" style="color: #fff;font-weight: bold;letter-spacing: 1px;text-align: left;">Player:
+                    {{user.username}} <br />From: {{user.address}}</span>
+                <span style="color: #fff;" id="ticketno">TICKET: {{ticket.ticket_no}}</span>                
+            </div>
+        </div>
+        {% with ticket_data=ticket.ticket_digits|to_list %}
+        <div class="section group nm">
+            <div class="col span_1_of_9 cells cell-odd">
+                <text id="{{ticket.ticket_no}}_0">
+                    {% if ticket_data.0 is not 0  %}
+                    {{ticket_data.0}}
+                    &nbsp;&nbsp;
+                    {% else %}
+                    &nbsp;&nbsp;
+                    {% endif %}
+                </text>
+            </div>
+            <div class="col span_1_of_9 cells cell-even">
+                <text id="{{ticket.ticket_no}}_1">
+                    {% if ticket_data.1 is not 0  %}
+                    {{ticket_data.1}}
+                    &nbsp;&nbsp;
+                    {% else %}
+                    &nbsp;&nbsp;
+                    {% endif %}
+                </text>
+            </div>
+            <div class="col span_1_of_9 cells cell-odd">
+                <text id="{{ticket.ticket_no}}_2">
+                    {% if ticket_data.2 is not 0  %}
+                    {{ticket_data.2}}
+                    &nbsp;&nbsp;
+                    {% else %}
+                    &nbsp;&nbsp;
+                    {% endif %}
+                </text>
+            </div>
+            <div class="col span_1_of_9 cells cell-even">
+                <text id="{{ticket.ticket_no}}_3">
+                    {% if ticket_data.3 is not 0  %}
+                    {{ticket_data.3}}
+                    &nbsp;&nbsp;
+                    {% else %}
+                    &nbsp;&nbsp;
+                    {% endif %}
+                </text>
+            </div>
+            <div class="col span_1_of_9 cells cell-odd">
+                <text id="{{ticket.ticket_no}}_4">
+                    {% if ticket_data.4 is not 0  %}
+                    {{ticket_data.4}}
+                    &nbsp;&nbsp;
+                    {% else %}
+                    &nbsp;&nbsp;
+                    {% endif %}
+                </text>
+            </div>
+            <div class="col span_1_of_9 cells cell-even">
+                <text id="{{ticket.ticket_no}}_5">
+                    {% if ticket_data.5 is not 0  %}
+                    {{ticket_data.5}}
+                    &nbsp;&nbsp;
+                    {% else %}
+                    &nbsp;&nbsp;
+                    {% endif %}
+                </text>
+            </div>
+            <div class="col span_1_of_9 cells cell-odd">
+                <text id="{{ticket.ticket_no}}_6">
+                    {% if ticket_data.6 is not 0  %}
+                    {{ticket_data.6}}
+                    &nbsp;&nbsp;
+                    {% else %}
+                    &nbsp;&nbsp;
+                    {% endif %}
+                </text>
+            </div>
+            <div class="col span_1_of_9 cells cell-even">
+                <text id="{{ticket.ticket_no}}_7">
+                    {% if ticket_data.7 is not 0  %}
+                    {{ticket_data.7}}
+                    &nbsp;&nbsp;
+                    {% else %}
+                    &nbsp;&nbsp;
+                    {% endif %}
+                </text>
+            </div>
+            <div class="col span_1_of_9 cells cell-odd">
+                <text id="{{ticket.ticket_no}}_8">
+                    {% if ticket_data.8 is not 0  %}
+                    {{ticket_data.8}}
+                    &nbsp;&nbsp;
+                    {% else %}
+                    &nbsp;&nbsp;
+                    {% endif %}
+                </text>
+            </div>
+        </div>
+        <div class="section group middle nm">
+            <div class="col span_1_of_9 cells cell-even">
+                <text id="{{ticket.ticket_no}}_9">
+                    {% if ticket_data.9 is not 0  %}
+                    {{ticket_data.9}}
+                    &nbsp;&nbsp;
+                    {% else %}
+                    &nbsp;&nbsp;
+                    {% endif %}
+                </text>
+            </div>
+            <div class="col span_1_of_9 cells cell-odd">
+                <text id="{{ticket.ticket_no}}_10">
+                    {% if ticket_data.10 is not 0  %}
+                    {{ticket_data.10}}
+                    &nbsp;&nbsp;
+                    {% else %}
+                    &nbsp;
+                    {% endif %}
+                </text>
+            </div>
+            <div class="col span_1_of_9 cells cell-even">
+                <text id="{{ticket.ticket_no}}_11">
+                    {% if ticket_data.11 is not 0  %}
+                    {{ticket_data.11}}
+                    &nbsp;&nbsp;
+                    {% else %}
+                    &nbsp;
+                    {% endif %}
+                </text>
+            </div>
+            <div class="col span_1_of_9 cells cell-odd">
+                <text id="{{ticket.ticket_no}}_12">
+                    {% if ticket_data.12 is not 0  %}
+                    {{ticket_data.12}}
+                    &nbsp;&nbsp;
+                    {% else %}
+                    &nbsp;
+                    {% endif %}
+                </text>
+            </div>
+            <div class="col span_1_of_9 cells cell-even">
+                <text id="{{ticket.ticket_no}}_13">
+                    {% if ticket_data.13 is not 0  %}
+                    {{ticket_data.13}}
+                    &nbsp;&nbsp;
+                    {% else %}
+                    &nbsp;
+                    {% endif %}
+                </text>
+            </div>
+            <div class="col span_1_of_9 cells cell-odd">
+                <text id="{{ticket.ticket_no}}_14">
+                    {% if ticket_data.14 is not 0  %}
+                    {{ticket_data.14}}
+                    &nbsp;&nbsp;
+                    {% else %}
+                    &nbsp;
+                    {% endif %}
+                </text>
+            </div>
+            <div class="col span_1_of_9 cells cell-even">
+                <text id="{{ticket.ticket_no}}_15">
+                    {% if ticket_data.15 is not 0  %}
+                    {{ticket_data.15}}
+                    &nbsp;&nbsp;
+                    {% else %}
+                    &nbsp;
+                    {% endif %}
+                </text>
+            </div>
+            <div class="col span_1_of_9 cells cell-odd">
+                <text id="{{ticket.ticket_no}}_16">
+                    {% if ticket_data.16 is not 0  %}
+                    {{ticket_data.16}}
+                    &nbsp;&nbsp;
+                    {% else %}
+                    &nbsp;
+                    {% endif %}
+                </text>
+            </div>
+            <div class="col span_1_of_9 cells cell-even">
+                <text id="{{ticket.ticket_no}}_17">
+                    {% if ticket_data.17 is not 0  %}
+                    {{ticket_data.17}}
+                    &nbsp;&nbsp;
+                    {% else %}
+                    &nbsp;
+                    {% endif %}
+                </text>
+            </div>
+        </div>
+
+        <div class="section group nm" style="margin-bottom: 10px;">
+            <div class="col span_1_of_9 cells cell-odd">
+                <text id="{{ticket.ticket_no}}_18">
+                    {% if ticket_data.18 is not 0  %}
+                    {{ticket_data.18}}
+                    &nbsp;&nbsp;
+                    {% else %}
+                    &nbsp;
+                    {% endif %}
+                </text>
+            </div>
+            <div class="col span_1_of_9 cells cell-even">
+                <text id="{{ticket.ticket_no}}_19">
+                    {% if ticket_data.19 is not 0  %}
+                    {{ticket_data.19}}
+                    &nbsp;&nbsp;
+                    {% else %}
+                    &nbsp;
+                    {% endif %}
+                </text>
+            </div>
+            <div class="col span_1_of_9 cells cell-odd">
+                <text id="{{ticket.ticket_no}}_20">
+                    {% if ticket_data.20 is not 0  %}
+                    {{ticket_data.20}}
+                    &nbsp;&nbsp;
+                    {% else %}
+                    &nbsp;
+                    {% endif %}
+                </text>
+            </div>
+            <div class="col span_1_of_9 cells cell-even">
+                <text id="{{ticket.ticket_no}}_21">
+                    {% if ticket_data.21 is not 0  %}
+                    {{ticket_data.21}}
+                    &nbsp;&nbsp;
+                    {% else %}
+                    &nbsp;
+                    {% endif %}
+                </text>
+            </div>
+            <div class="col span_1_of_9 cells cell-odd">
+                <text id="{{ticket.ticket_no}}_22">
+                    {% if ticket_data.22 is not 0  %}
+                    {{ticket_data.22}}
+                    &nbsp;&nbsp;
+                    {% else %}
+                    &nbsp;
+                    {% endif %}
+                </text>
+            </div>
+            <div class="col span_1_of_9 cells cell-even">
+                <text id="{{ticket.ticket_no}}_23">
+                    {% if ticket_data.23 is not 0  %}
+                    {{ticket_data.23}}
+                    &nbsp;&nbsp;
+                    {% else %}
+                    &nbsp;
+                    {% endif %}
+                </text>
+            </div>
+            <div class="col span_1_of_9 cells cell-odd">
+                <text id="{{ticket.ticket_no}}_24">
+                    {% if ticket_data.24 is not 0  %}
+                    {{ticket_data.24}}
+                    &nbsp;&nbsp;
+                    {% else %}
+                    &nbsp;
+                    {% endif %}
+                </text>
+            </div>
+            <div class="col span_1_of_9 cells cell-even">
+                <text id="{{ticket.ticket_no}}_25">
+                    {% if ticket_data.25 is not 0  %}
+                    {{ticket_data.25}}
+                    &nbsp;&nbsp;
+                    {% else %}
+                    &nbsp;
+                    {% endif %}
+                </text>
+            </div>
+            <div class="col span_1_of_9 cells cell-odd">
+                <text id="{{ticket.ticket_no}}_26">
+                    {% if ticket_data.26 is not 0  %}
+                    {{ticket_data.26}}
+                    &nbsp;&nbsp;
+                    {% else %}
+                    &nbsp;
+                    {% endif %}
+                </text>
+            </div>
+        </div>
+        {% endwith %}
+{% endwith %}
+</div>
+{% endfor %}
