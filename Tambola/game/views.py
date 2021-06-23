@@ -161,21 +161,22 @@ def last_called_no():
         play_audio = True
         ticket_data = TicketDailyData.objects.all().last()
         winner_data = WinnerData.objects.all()
-        full_house_winner = WinnerData.objects.filter(achievement="full_house").values('ticket__ticket_no','ticket__bookticket__username')
-        second_full_house_winner = WinnerData.objects.filter(achievement="second_full_house").values('ticket__ticket_no','ticket__bookticket__username')
-        third_full_house_winner = WinnerData.objects.filter(achievement="third_full_house").values('ticket__ticket_no','ticket__bookticket__username')
-        first_line_winner = WinnerData.objects.filter(achievement="line_1").values('ticket__ticket_no','ticket__bookticket__username')
-        second_line_winner = WinnerData.objects.filter(achievement="line_2").values('ticket__ticket_no','ticket__bookticket__username')
-        third_line_winner = WinnerData.objects.filter(achievement="line_3").values('ticket__ticket_no','ticket__bookticket__username')
-        star_winner = WinnerData.objects.filter(achievement="star").values('ticket__ticket_no','ticket__bookticket__username')
-        quickfive_winner = WinnerData.objects.filter(achievement="quick_five").values('ticket__ticket_no','ticket__bookticket__username')
-        quickseven_winner = WinnerData.objects.filter(achievement="quick_seven").values('ticket__ticket_no','ticket__bookticket__username')
-        corner = WinnerData.objects.filter(achievement="corner").values('ticket__ticket_no','ticket__bookticket__username')
-        half_sheet = WinnerData.objects.filter(achievement="half_sheet").values('half_sheet')
+        full_house_winner = WinnerData.objects.filter(achievement="full_house").values('ticket__ticket_no','ticket__bookticket__username', 'last_called_no')
+        second_full_house_winner = WinnerData.objects.filter(achievement="second_full_house").values('ticket__ticket_no','ticket__bookticket__username', 'last_called_no')
+        third_full_house_winner = WinnerData.objects.filter(achievement="third_full_house").values('ticket__ticket_no','ticket__bookticket__username', 'last_called_no')
+        first_line_winner = WinnerData.objects.filter(achievement="line_1").values('ticket__ticket_no','ticket__bookticket__username', 'last_called_no')
+        second_line_winner = WinnerData.objects.filter(achievement="line_2").values('ticket__ticket_no','ticket__bookticket__username', 'last_called_no')
+        third_line_winner = WinnerData.objects.filter(achievement="line_3").values('ticket__ticket_no','ticket__bookticket__username', 'last_called_no')
+        star_winner = WinnerData.objects.filter(achievement="star").values('ticket__ticket_no','ticket__bookticket__username', 'last_called_no')
+        quickfive_winner = WinnerData.objects.filter(achievement="quick_five").values('ticket__ticket_no','ticket__bookticket__username', 'last_called_no')
+        quickseven_winner = WinnerData.objects.filter(achievement="quick_seven").values('ticket__ticket_no','ticket__bookticket__username', 'last_called_no')
+        corner = WinnerData.objects.filter(achievement="corner").values('ticket__ticket_no','ticket__bookticket__username', 'last_called_no')
+        half_sheet = WinnerData.objects.filter(achievement="half_sheet").values('half_sheet', 'last_called_no')
         temp_half_sheet = []
         for half in half_sheet:
             temp  = {}
             temp['ticket__ticket_no']  = half['half_sheet']
+            temp['last_called_no']  = half['last_called_no']
             ticket = Ticket.objects.get(ticket_no=half['half_sheet'].split('-')[0])
             try:
                 temp['ticket__bookticket__username'] = ticket.bookticket.username
@@ -184,11 +185,12 @@ def last_called_no():
             temp_half_sheet.append(temp)
         half_sheet = temp_half_sheet
         
-        full_sheet = WinnerData.objects.filter(achievement="full_sheet").values('full_sheet')
+        full_sheet = WinnerData.objects.filter(achievement="full_sheet").values('full_sheet', 'last_called_no')
         temp_full_sheet = []
         for half in full_sheet:
             temp  = {}
             temp['ticket__ticket_no']  = half['full_sheet']
+            temp['last_called_no']  = half['last_called_no']
             ticket = Ticket.objects.get(ticket_no=half['full_sheet'].split('-')[0])
             try:
                 temp['ticket__bookticket__username'] = ticket.bookticket.username
