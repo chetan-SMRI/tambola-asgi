@@ -626,7 +626,10 @@ showcouponClicked = function (){
     var x = document.getElementById("t_"+pnum);
     attr = $(document).find('#t_'+pnum).closest('div.message_box').attr('class').split(' ')[1]
     if(attr && attr != '-'){
-        $(document).find('.'+attr).css('display','initial')
+        Array.from(document.getElementsByClassName(attr)).forEach(
+        function(element) { element.style.display='initial';  }
+        );
+        //$(document).find('.'+attr).css('display','initial')
     }
     else{
     x.style.display = "initial";
