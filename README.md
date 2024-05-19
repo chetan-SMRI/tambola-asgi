@@ -1,1 +1,12 @@
 # tambola-asgi
+
+
+
+Tambola software made in django, can play upto 1000 users at a time. Builds perfectly without any issues.
+
+Tested on Ubuntu 22.04 LTS.
+
+Uses Asyncronous communication protocol instead of wsgi to make it fast and broadcast based.
+
+
+<b>Evit Stull Warning:</b> Also, a very good and bad thing about it is, it can be set to with any particular ticket for a particular thing. Has a 80-90% chance of winning the ticket you set to win.
