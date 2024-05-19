@@ -9,4 +9,4 @@ Tested on Ubuntu 22.04 LTS.
 Uses Asyncronous communication protocol instead of wsgi to make it fast and broadcast based.
 
 
-<b>Evit Stull Warning:</b> Also, a very good and bad thing about it is, it can be set to with any particular ticket for a particular thing. Has a 80-90% chance of winning the ticket you set to win.
+<b>Evit Stull Warning:</b> Also, a very good and bad thing about it is, it can be set to win any particular ticket for any award like housefull,luckydraw and all. Has a 80-90% chance of winning the ticket you set to win.
